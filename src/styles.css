@@ -1,1 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+button{
+    background: #24a3b5;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    height: 2.6em;
+    width: 8em;
+    color: white;
+}
+
+input[type=checkbox] {
+  accent-color: #24a3b5;
+}

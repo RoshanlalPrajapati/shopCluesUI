@@ -1,0 +1,53 @@
+<div>
+    <div class="middleSection">
+        <div>
+            <span>
+                <span style="font-weight: 700;">My Wishlist</span>
+                {{sharedService.allWishListProducts.length}} items
+            </span>
+        </div>
+        <div class="productsSection">
+            <div class="productCard" *ngFor="let product of sharedService.allWishListProducts">
+                <div>
+                    <span class="crossButton"><mat-icon matTooltip="remove" (click)="deleteItemFromWishlist(product?.productId)">close</mat-icon></span>
+                    <img [src]="product.imageUrl" alt="{{ product.name }}" class="productImage">
+                    <div class="productDetails">
+                        <span class="productName">{{ product.productName }}</span>
+                        <span class="productPrice">₹{{ product.price }}</span>
+                    </div>
+                </div>
+                <div class="moveToBag" style="margin-top: 1em;">
+                    <button type="button" (click)="openPopupForMoveToBag(product)">Move To Bag</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" *ngIf="isModalOpen">
+    <div class="modal-overlay">
+        <div class="modal-content">
+            <span style="display: flex;justify-content: end;"><mat-icon (click)="closePopup()">close</mat-icon></span>
+            <div style="display: flex;flex-direction: column;gap: 1em;">
+                <div class="photosAndDesc">
+                    <div class="imageSection">
+                        <img [src]="openModalAsPerItemSelected?.imageUrl" alt="">
+                    </div>
+                    <div class="descriptionSection" style="display: grid;">
+                        <span>{{openModalAsPerItemSelected?.productName}}</span>
+                        <span>{{openModalAsPerItemSelected?.description}}</span>
+                        <span>{{openModalAsPerItemSelected?.price}}</span>
+                    </div>
+                </div>
+                <hr>
+                <div class="size" *ngIf="['Women', 'Men'].includes(openModalAsPerItemSelected.header)">
+                    <span (click)="selectedSizeByUserInWishList(s)" [class.selected]="selectedSizeByUser === s" class="sizeOfPro" *ngFor="let s of size">{{s}}</span>
+                </div>
+                <div class="buttonDiv" style="display: flex;margin-top: 1em;">
+                    <button type="button" style="width: 100%;" (click)="addItemToBag()">Done</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

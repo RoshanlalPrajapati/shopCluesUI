@@ -1,0 +1,89 @@
+.mainClass {
+    display: flex;
+    gap: 1em;
+    background-color: #eff7fa;
+}
+
+.filterSection {
+    max-height: 100dvh;
+    height: 77dvh;
+    width: 20%;
+    margin: 2em;
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.06);
+    border-radius: 4px;
+    background-color: white;
+}
+
+.middleSection {
+    flex: 1;
+    padding: 2rem;
+    width: 80%;
+    margin: 2em;
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.06);
+    border-radius: 4px;
+    background-color: white;
+}
+
+.productsSection {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.productCard {
+    background-color: white;
+    padding: 1rem;
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+    border: 1px solid #e9e9eb
+}
+
+.productCard img{
+        width: 117%;
+    object-fit: cover;
+    height: 18em;
+    position: relative;
+    left: -1em;
+    top: -1em;
+    border-radius: unset;
+}
+
+.productCard:hover {
+    border: 1px solid #ddd;
+    border-radius: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.productImage {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.productName {
+    font-size: 1rem;
+    color: #333;
+    margin: 0.5rem 0;
+}
+
+.productPrice {
+    font-size: 1.1rem;
+    color: #24a3b5;
+    font-weight: bold;
+}
+
+.addToCartButton {
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    color: white;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+    width: 85%;
+}
+
+.addToCartButton:hover {
+    background: #1e8aa1 !important;
+}

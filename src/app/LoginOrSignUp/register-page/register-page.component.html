@@ -1,0 +1,63 @@
+<mat-dialog-content class="auth-modal">
+  <div class="modal-container">
+    <!-- Right Form Area -->
+    <div class="form-area">
+      <mat-tab-group [(selectedIndex)]="selectedTabIndex">
+        <!-- LOGIN TAB -->
+        <mat-tab label="LOGIN">
+          <form class="auth-form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+              <button style="position: relative; right: 0.5em;" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+                [attr.aria-label]="hidePassword ? 'Show' : 'Hide'">
+                <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+            </mat-form-field>
+
+            <button mat-raised-button color="warn" type="submit" class="register-btn">Login</button>
+          </form>
+        </mat-tab>
+
+        <!-- REGISTER TAB -->
+        <mat-tab label="REGISTER">
+          <form class="auth-form" [formGroup]="registerForm" (ngSubmit)="onRegister()">
+            <mat-form-field appearance="outline">
+              <mat-label>Username</mat-label>
+              <input matInput formControlName="username">
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Mobile Number</mat-label>
+              <input matInput formControlName="mobile">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <input matInput [type]="hideRegisterPassword ? 'password' : 'text'" formControlName="password">
+              <button style="position: relative; right: 0.5em;" mat-icon-button matSuffix (click)="hideRegisterPassword = !hideRegisterPassword">
+                <mat-icon>{{ hideRegisterPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+            </mat-form-field>
+
+            <button mat-raised-button color="warn" type="submit" class="register-btn">Register</button>
+
+            <button mat-flat-button class="facebook-btn">
+              <mat-icon svgIcon="facebook"></mat-icon> Continue with Facebook
+            </button>
+          </form>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</mat-dialog-content>

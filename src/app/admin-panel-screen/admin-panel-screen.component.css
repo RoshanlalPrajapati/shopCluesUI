@@ -1,0 +1,64 @@
+.orderDiv {
+    display: flex;
+    width: 50%;
+    border-radius: 8px;
+    gap: 2em;
+    border: 1.2px solid #e9e9eb;
+    padding: 0.5em;
+    transition: box-shadow 0.3s ease;
+    height: 28dvh;
+    align-items: center;
+}
+
+.imageDiv {
+    width: 18%;
+}
+
+.imageDiv img {
+    width: 100%;
+}
+
+.orderDiv:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.descriptionDiv {
+    display: grid;
+    gap: 1em;
+    height: 100%;
+}
+
+.orderDetails {
+    display: grid;
+
+    span {
+        font-size: 14px;
+        font-weight: 300;
+    }
+}
+
+.orderStatus {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+
+    span {
+        font-size: 13px;
+        font-weight: 500;
+    }
+}
+
+.showGreenColor {
+    background-color: #46ac46;
+    ;
+    color: white;
+    padding: 0.3em 3.9px;
+    border-radius: 2px;
+}
+
+.showRedColor {
+    background-color: #f44336;
+    color: white;
+    padding: 0.3em 3.9px;
+    border-radius: 2px;
+}

@@ -1,0 +1,22 @@
+<div style="width: 100%;display: grid;gap: 2em;padding: 1em;">
+    <div *ngFor="let item of orders" class="orderDiv">
+        <div class="imageDiv">
+            <img [src]="item.product.imageUrl" alt="">
+        </div>
+        <div class="descriptionDiv">
+            <div class="orderDetails">
+                <span>Product Name: {{item.product.name}}</span>
+                <span>Category: {{item.product.header}}</span>
+                <span>Size : {{item.size}}</span>
+                <span>Quantity: {{item.quantity}}</span>
+                <span>Mobile No: {{item.user.mobileNo}}</span>
+            </div>
+            <div class="orderStatus">
+                <span>Ordered Date: {{item.orderDate | date}}</span>
+                <span>Ordered Status: <span [ngClass]="item.orderStatus === 'PAYMENT SUCCESS' ? 'showGreenColor': 'showRedColor'">{{item.orderStatus}}</span></span>
+                <span>Total Amount: {{item.totalAmount}}</span>
+            </div>
+        </div>
+    </div>
+
+</div>

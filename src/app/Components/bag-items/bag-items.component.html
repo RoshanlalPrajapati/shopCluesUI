@@ -1,0 +1,155 @@
+<div class="container">
+    <div class="addressSection" *ngIf="sharedService.allBagItems.length">
+        <div class="address" style="width: 60%;">
+            <div style="display: grid;gap: 1em;">
+                <span style="font-weight: 300;">Deliver to: <span style="font-weight: 500;">{{isAddressAlreadyPresent[0]?.name}}, {{isAddressAlreadyPresent[0]?.pincode}}</span></span>
+                <span style="font-size: 13px;font-weight: 300;">{{isAddressAlreadyPresent[0]?.addressLine1}}</span>
+            </div>
+        </div>
+        <div class="changeAddressBtn" style="width: 30%;">
+            <button *ngIf="isAddressAlreadyPresent.length" style="background: transparent;border: 2px solid #24a3b5;color: #24a3b5;width: 100%;" (click)="openModalForChangeAddress()">CHANGE ADDRESS</button>
+            <button *ngIf="isAddressAlreadyPresent.length === 0" style="background: transparent;border: 2px solid #24a3b5;color: #24a3b5;width: 100%;" (click)="openModalForAddress()">ADD ADDRESS</button>
+        </div>
+    </div>
+
+    <div class="bagItems" style="gap: 3em;" *ngIf="sharedService.allBagItems.length">
+        <div style="width: 46%;display: grid;gap: 1em;">
+            <div *ngFor="let item of sharedService.allBagItems" class="itemContainer" [ngClass]="selectedItems.includes(item.productId) ? 'selectedColor' : ''">
+                <span><input class="checkBox" type="checkbox" value="item" [name]="item.productName" (change)="checkedProductItems(item, $event)"></span>
+                <div style="display: flex;gap: 2em;width: 100%;padding: 1em">
+                    <span class="crossButton"><mat-icon matTooltip="remove"
+                            (click)="deleteBagItems(item)">close</mat-icon></span>
+                    <div class="imageSection">
+                        <img [src]="item.imageUrl" alt="">
+                    </div>
+                    <div class="descSection">
+                        <span class="productName">{{item.productName}}</span>
+                        <span class="productDesc">{{item.description}}</span>
+                        <span class="productPrice">₹{{item.price}}</span>
+                        <span style="display: flex;gap: 0.5em;align-items: center;">
+                            <ng-container *ngIf="['Men', 'Women'].includes(item.header)">
+                                Size:
+                            <select (change)="changeSize($event, item)" style="height: 80%;border: none;">
+                                <option [value]="item.size">{{ item.size }}</option>
+                                <option *ngFor="let s of size" value="" [value]="s" [hidden]="s === item.size">{{s}}
+                                </option>
+                            </select>
+                            </ng-container>
+                            Quantity:
+                            <select (change)="changeQuantity($event, item)" name="" id="" style="height: 80%;border: none;">
+                                <option [value]="q" *ngFor="let q of quantity">{{q}}</option>
+                            </select>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr style="border: 1px solid #eaeaec;">
+        <div class="priceContainer">
+            <div class="priceSection" style="width: 100%;">
+                <div style="font-size: 14px; width: 100%;display: flex;flex-direction: column;gap: 1em;padding: 1em;">
+
+                    <div style="font-weight: 600; margin-bottom: 1em;color: #535766;">
+                        PRICE DETAILS ({{ sharedService.allBagItems.length }})
+                    </div>
+
+                    <div style="width: 32%;display: flex;justify-content: space-between;padding: 1em;">
+                        <span style="font-size: 14px;color: #282c3f;">Total MRP</span>
+                        <span>{{ totalPriceOfBagItems }}</span>
+                    </div>
+
+                    <div style="width: 32%;display: flex;justify-content: space-between;padding: 1em;">
+                        <span style="font-size: 14px;color: #282c3f;">Coupon Discount</span>
+                        <span>{{couponDiscount}}</span>
+                    </div>
+
+                    <div style="width: 32%;display: flex;justify-content: space-between;padding: 1em;">
+                        <span style="font-size: 14px;color: #282c3f;">Platform Fee</span>
+                        <span>{{platformFee}}</span>
+                    </div>
+
+                    <div style="border: 1px solid #eaeaec; width: 35%;"></div>
+
+                    <div style="width: 32%;display: flex;justify-content: space-between;padding: 1em;">
+                        <span style="color: #3e4152;font-weight: 700;">Total Amount</span>
+                        <span style="color: #3e4152;font-size: 15px;">{{totalPriceOfBagItems}}</span>
+                    </div>
+                    <div>
+                        <button style="width: 35%;background: #24a3b5;color: white;font-weight: 700;" (click)="placeOrder()">PLACE ORDER</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div *ngIf="sharedService.allBagItems.length === 0" class="emptyBag">
+        <div style="display: grid;text-align: center;">
+            <h3>Hey, it feels so light!</h3>
+            <span>There is nothing in your bag. Let's add some items.</span>
+        </div>
+        <div>
+            <button style="width: 100%;color: white;background: #24a3b5;" (click)="moveToWishListPage()">ADD ITEMS FROM WISHLIST</button>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal" *ngIf="isAddressModalOpen">
+  <div class="modal-overlay" (click)="closeModal()">
+    <div class="modal-content address-modal" style="overflow-y: scroll;" (click)="$event.stopPropagation()">
+
+      <div class="contact-details">
+        <span class="section-title">CONTACT DETAILS</span>
+        <input [(ngModel)]="name" type="text" placeholder="Name" class="input-field">
+        <input [(ngModel)]="phoneNo" type="number" placeholder="Mobile No" class="input-field">
+      </div>
+
+      <div class="contact-details">
+        <span class="section-title">ADDRESS</span>
+        <input [(ngModel)]="pincode" type="number" placeholder="Pincode" class="input-field">
+        <input [(ngModel)]="addressline" type="text" placeholder="Address (House No, Building, Street, Area)*" class="input-field">
+        <input [(ngModel)]="country" type="text" placeholder="Country" class="input-field">
+        <input [(ngModel)]="state" type="text" placeholder="State" class="input-field">
+        <input [(ngModel)]="city" type="text" placeholder="City" class="input-field">
+      </div>
+
+      <div class="button-container">
+        <button (click)="addAddress()" class="save-button">Save Address</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" *ngIf="isAddressModalOpenForChangeAddress">
+  <div class="modal-overlay" (click)="closeModal()">
+    <div class="modal-content" style="overflow-y: scroll;" (click)="$event.stopPropagation()">
+
+      <div *ngFor="let address of isAddressAlreadyPresent" class="address-card">
+        <div class="address-header">
+          <span class="address-name">{{ address.name }}</span>
+          <span class="address-tag">HOME</span>
+        </div>
+
+        <div class="address-details">
+          {{ address.addressLine1 }}, {{ address.city }}, {{ address.state }} - {{ address.pincode }} <br>
+          {{ address.country }}
+        </div>
+
+        <div class="address-phone">
+          Mobile: {{ address.phoneNo }}
+        </div>
+
+        <div class="address-actions">
+          <button style="width: 30%;" (click)="updateAddress(address)" >Delivering Here</button>
+          <button style="width: 20%;" (click)="openModalForAddress(address)" >Edit</button>
+          <span class="delete-icon" (click)="deleteAddress(address.id)" ><mat-icon>delete</mat-icon></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+

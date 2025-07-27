@@ -1,0 +1,96 @@
+.middleSection {
+    display: grid;
+    flex: 1;
+    background-color: white;
+    gap: 1em;
+    margin-top: 2em;
+}
+
+.productsSection {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.productCard {
+    position: relative;
+    background-color: white;
+    padding: 1rem;
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+    border: 1px solid #e9e9eb;
+}
+
+.productCard:hover {
+    border: 1px solid #ddd;
+    border-radius: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.productImage {
+    width: 116.9%;
+    object-fit: cover;
+    height: 18em;
+    position: relative;
+    left: -1em;
+    top: -1em;
+    border-radius: unset;
+}
+
+.productDetails {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.productName {
+    font-size: 16px;
+    color: #282c3f;
+    margin: 0.5rem 0;
+}
+
+.productPrice {
+    font-size: 16px;
+    color: #24a3b5;
+    font-weight: bold;
+    color: #282c3f;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    margin-bottom: 1em;
+}
+
+.carousel-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-image {
+    width: 100%;
+    height: auto;
+}
+
+.carousel-dots {
+    text-align: center;
+    margin-top: 0.5em;
+}
+
+.carousel-dots span {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 4px;
+    background-color: #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.carousel-dots span.active {
+    background-color: #333;
+}

@@ -1,0 +1,69 @@
+<div class="nav-bar col-12">
+    <div class="logo allInOneClass" style="width: 20em;">
+        <span (click)="moveToHomePage()">E-Commerce</span>
+    </div>
+    <div class="searchBar allInOneClass" style="width: 50em;" *ngIf="loggedInData?.userRole !== 'Admin'">
+        <div class="middleSection">
+            <span class="searchIcon">
+                <mat-icon>search</mat-icon>
+            </span>
+            <input class="searchBox" type="text" placeholder="Search products...">
+            <button class="buttonForSearch">Search</button>
+        </div>
+    </div>
+    <div class="sideMenu allInOneClass" style="width: 30em;">
+        <mat-icon *ngIf="loggedInData?.userRole !== 'Admin'" matTooltip="location">location_on</mat-icon>
+        <span *ngIf="loggedInData?.userRole !== 'Admin'" style="display: flex;">
+            <mat-icon (click)="goToWishlist()" matTooltip="wishlist">favorite</mat-icon>
+            <span style="position: relative;top: -6px;background: #24a3b5;border-radius: 25px;display: flex;align-items: center;height: 18px;width: 18px;justify-content: center;color: white;">{{sharedService.whishlistedItems.length}}</span>
+        </span>
+        <span *ngIf="loggedInData?.userRole !== 'Admin'" style="display: flex;">
+            <mat-icon matTooltip="cart" (click)="goToBagItemPage()">add_shopping_cart</mat-icon>
+            <span style="position: relative;top: -6px;background: #24a3b5;border-radius: 25px;display: flex;align-items: center;height: 18px;width: 18px;justify-content: center;color: white;">{{sharedService.allBagItems.length}}</span>
+        </span>
+        <span (click)="openModalForLoginRegister($event)">{{loggedInData ? 'Hi ' + loggedInData?.username : 'Log in'}}</span>
+        <span (click)="openModalForLoginRegister(loggedInData ? 'Log out' : 'register')">{{loggedInData ? 'Log out' : 'Sign In'}}</span>
+    </div>
+</div>
+
+<div *ngIf="loggedInData?.userRole !== 'Admin'">
+    <div>
+        <div>
+            <div class="productNameSection">
+                <button *ngIf="loggedInData?.userRole === 'Admin'" (click)="addProductsModal()">add products</button>
+                <span *ngFor="let header of headers" (click)="getCategoriesData(header)"
+                    [class.active]="activeHeader === header" class="header-item">
+                    {{ header }}
+
+                    <div class="category-popup"
+                        *ngIf="activeHeader === header && categoryToShowOnUIBasedOnHeader.length && toShowOrHideHeaderData">
+                        <div class="categoryStyle" *ngFor="let item of categoryToShowOnUIBasedOnHeader"
+                            (click)="getDataBasedOnHeaderAnsSubCategory(header, $event)">
+                            {{ item.subCategory }}
+                        </div>
+                    </div>
+                </span>
+            </div>
+
+            <!-- same admin wala -->
+            <!-- <div>
+        <h1>save product data to db</h1>
+        <input type="text" placeholder="enter header name" [(ngModel)]="header">
+        <input type="text" placeholder="enter sub sub header name" [(ngModel)]="subSubbHeader">
+        <button (click)="postService()">save to db</button>
+    </div> -->
+        </div>
+    </div>
+</div>
+
+<div class="modal-container" *ngIf="showModal">
+    <div class="modal-content">
+        <input [(ngModel)]="name" type="text" placeholder="enter name">
+        <input [(ngModel)]="price" type="text" placeholder="enter price">
+        <input type="file" (change)="onFileSelected($event)">
+        <input [(ngModel)]="desc" type="text" placeholder="enter desc">
+        <input [(ngModel)]="subCategory" type="text" placeholder="enter sub category">
+        <input [(ngModel)]="header" type="text" placeholder="enter header">
+    </div>
+    <button (click)="addProducts()">submit</button>
+</div>

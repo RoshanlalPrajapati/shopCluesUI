@@ -1,0 +1,27 @@
+<div>
+    <div class="middleSection">
+
+        <div class="carousel-container">
+            <div class="carousel-slide">
+                <img [src]="carouselImages[currentIndex]" alt="Carousel Image" class="carousel-image">
+            </div>
+
+            <div class="carousel-dots">
+                <span *ngFor="let img of carouselImages; let i = index" [class.active]="i === currentIndex"
+                    (click)="selectImage(i)"></span>
+            </div>
+        </div>
+
+        <div class="productsSection">
+            <div class="productCard" *ngFor="let product of sharedService.allProductsData">
+                <div>
+                    <img [src]="product.imageUrl" alt="{{ product.name }}" class="productImage">
+                    <div class="productDetails">
+                        <span class="productName">{{ product.name }}</span>
+                        <span class="productPrice">₹{{ product.price }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="mainClass" *ngIf="allProductsBasedOnCategory?.length">
+
+    <div class="filterSection">
+
+    </div>
+
+    <div class="middleSection">
+        <div class="productsSection">
+            <div class="productCard" *ngFor="let product of allProductsBasedOnCategory">
+                <img [src]="product.imageUrl"
+                    alt="{{ product.name }}" class="productImage">
+                <h3 class="productName">{{ product.name }}</h3>
+                <p class="productPrice">₹{{ product.price }}</p>
+                <button class="addToCartButton" (click)="addToWishlist(product)">
+                    <span style="display: flex;align-items: center;justify-content: space-evenly;">
+                        <mat-icon matTooltip="wishlist">favorite</mat-icon>WISHLIST
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!allProductsBasedOnCategory?.length">
+    <h1>No Data for {{header}}</h1>
+</div>
